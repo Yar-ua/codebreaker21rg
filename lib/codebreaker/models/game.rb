@@ -34,8 +34,6 @@ module Codebreaker
         response(:win)
       when 'hint'
         response(:hint, show_hint)
-      when 'exit'
-        exit(0)
       else
         validate_and_check_code
       end

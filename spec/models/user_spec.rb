@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe Codebreaker::User do
   let(:user) { Codebreaker::User.new(name) }
-  let(:name) { 'Benny Hil' }
+  let(:name) { 'Benny Hill' }
 
   describe 'after initialize user must be valid with valid attributes' do
     it { expect(:name).to be }
