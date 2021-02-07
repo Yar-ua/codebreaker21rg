@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'codebreaker/version'
 require_relative 'codebreaker/errors/empty_value_error'
 require_relative 'codebreaker/errors/wrong_type_error'

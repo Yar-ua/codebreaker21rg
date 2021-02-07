@@ -1,16 +1,14 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
 
 RSpec.describe Codebreaker::ValidationHelper do
   let(:user) { Codebreaker::User.new('Billy Kid') }
   let(:game) { Codebreaker::Game.new(user, 'easy') }
+  let(:code) { game.generate }
 
   describe 'code helper' do
-    it 'generate' do
-      code = game.generate
-      expect(code.size).to eq(4)
-      expect(code.match?(/[1-6]/)).to be_truthy
+    describe 'generate' do
+      it { expect(code.size).to eq(4) }
+      it { expect(code).to be_match(/[1-6]/) }
     end
 
     describe 'check secret code 6543' do

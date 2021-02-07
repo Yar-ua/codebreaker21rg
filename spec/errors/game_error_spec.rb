@@ -6,6 +6,6 @@ RSpec.describe GameError do
   let(:user) { Codebreaker::User.new('newuser') }
 
   describe 'raise GameError if something wrong' do
-    it { expect { Codebreaker::Game.new(user, 'eassy') }.to raise_error(GameError) }
+    it { expect { Codebreaker::Game.new(user, 'eassy') }.to raise_error(described_class) }
   end
 end

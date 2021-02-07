@@ -1,17 +1,15 @@
-# frozen_string_literal: true
-
 module Codebreaker
   class Game
     include CodeHelper
     include ValidationHelper
 
-    attr_reader :user, :level, :attempts, :hints
+    attr_reader :user, :level, :attempts, :hints, :code
 
     LEVELS = { easy: { attempts: 15, hints: 2 },
                medium: { attempts: 10, hints: 1 },
                hard: { attempts: 5, hints: 1 } }.freeze
 
-    def initialize(user, level = 'easy')
+    def initialize(user, level)
       validate(user, level)
       @user = user
       @code = generate
@@ -22,24 +20,21 @@ module Codebreaker
       @guess = ''
     end
 
+    def hint
+      response(:hint, show_hint)
+    end
+
     def run(guess)
       @guess = guess
-      @attempts.positive? ? play_game : response(:lose)
-    end
-
-    def play_game
       @attempts -= 1
-      case @guess
-      when @code
-        response(:win)
-      when 'hint'
-        response(:hint, show_hint)
-      else
-        validate_and_check_code
-      end
-    end
+      validate_code(@guess)
+      return response(:win, results) if win?
 
-    # ##TODO return user stata if winner
+      check = check_code(@code, @guess)
+      return response(:lose) if lose?
+
+      response(:ok, check)
+    end
 
     private
 
@@ -50,16 +45,30 @@ module Codebreaker
       validate_level(level, LEVELS)
     end
 
-    def validate_and_check_code
-      validate_code(@guess)
-      response(:ok, check_code(@code, @guess))
-    end
-
     def show_hint
       return :no_hint if @hints.zero?
 
       @hints -= 1
       @hints_array.delete(@hints_array.sample)
+    end
+
+    def win?
+      @guess == @code
+    end
+
+    def lose?
+      @attempts.negative?
+    end
+
+    def results
+      {
+        name: @user.name,
+        level: @level,
+        attempts_total: LEVELS[@level.to_sym][:attempts],
+        attempts_used: LEVELS[@level.to_sym][:attempts] - @attempts,
+        hints_total: LEVELS[@level.to_sym][:hints],
+        hints_used: LEVELS[@level.to_sym][:hints] - @hints
+      }
     end
 
     def response(status, message = '')
