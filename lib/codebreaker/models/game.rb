@@ -57,7 +57,7 @@ module Codebreaker
     end
 
     def lose?
-      @attempts.negative?
+      @attempts.zero? || @attempts.negative?
     end
 
     def results
