@@ -32,15 +32,6 @@ commands:
       - run:
           name: rubocop
           command: bundle exec rubocop --require rubocop-rspec
-  fasterer:
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Fasterer
-          command: bundle exec fasterer
-
-
 
   run_specs:
     steps:
@@ -58,7 +49,6 @@ jobs:
     steps:
       - defaults
       - run_linters
-      - fasterer
   run_specs:
     executor: default
     steps:
