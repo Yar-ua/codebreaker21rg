@@ -1,82 +1,72 @@
 require 'spec_helper'
 
 RSpec.describe Codebreaker::Game do
-  let(:user) { Codebreaker::User.new(name) }
-  let(:name) { 'Benny Hil' }
-  let(:game) { described_class.new(user, level) }
-  let(:level) { 'easy' }
+  let(:game) { described_class.new(difficulty) }
+  let(:difficulty) { 'easy' }
 
   describe 'after initialize game must be valid with valid attributes' do
-    it { expect(user).to be_truthy }
-    it { expect(level).to be_truthy }
-    it { expect(user).to be_an_instance_of(Codebreaker::User) }
+    it { expect(difficulty).to be_truthy }
     it { expect(game).to be_an_instance_of(described_class) }
   end
 
   describe 'game validation' do
-    it 'with empty user class' do
+    it 'with empty difficulty value' do
       expect do
-        described_class.new(nil, 'easy')
+        described_class.new(nil)
       end.to raise_error(EmptyValueError, Codebreaker::ValidationHelper::EMPTY_VALUE)
     end
 
-    it 'with incorrect user class' do
+    it 'with wrong difficulty' do
       expect do
-        described_class.new('user', 'easy')
-      end.to raise_error(WrongTypeError, Codebreaker::ValidationHelper::WRONG_TYPE)
-    end
-
-    it 'with wrong level' do
-      expect do
-        described_class.new(user, 'middle')
-      end.to raise_error(GameError, Codebreaker::ValidationHelper::INCORRECT_LEVEL)
+        described_class.new('unknown')
+      end.to raise_error(GameError, Codebreaker::ValidationHelper::INCORRECT_DIFFICULTY)
     end
   end
 
-  describe 'game have correct values depends on game level' do
-    describe 'when easy level' do
-      it 'have easy level' do
-        expect(game.level).to eq('easy')
+  describe 'game have correct values depends on game difficulty' do
+    describe 'when easy difficulty' do
+      it 'have easy difficulty' do
+        expect(game.difficulty).to eq('easy')
       end
 
       it 'have easy attempts' do
-        expect(game.attempts).to eq(Codebreaker::Game::LEVELS[:easy][:attempts])
+        expect(game.attempts).to eq(Codebreaker::Game::DIFFICULTY[:easy][:attempts])
       end
 
       it 'have easy hints' do
-        expect(game.hints).to eq(Codebreaker::Game::LEVELS[:easy][:hints])
+        expect(game.hints).to eq(Codebreaker::Game::DIFFICULTY[:easy][:hints])
       end
     end
 
-    describe 'when medium level' do
-      let(:level) { 'medium' }
+    describe 'when medium difficulty' do
+      let(:difficulty) { 'medium' }
 
-      it 'have medium level' do
-        expect(game.level).to eq('medium')
+      it 'have medium difficulty' do
+        expect(game.difficulty).to eq('medium')
       end
 
       it 'have medium attempts' do
-        expect(game.attempts).to eq(Codebreaker::Game::LEVELS[:medium][:attempts])
+        expect(game.attempts).to eq(Codebreaker::Game::DIFFICULTY[:medium][:attempts])
       end
 
       it 'have medium hints' do
-        expect(game.hints).to eq(Codebreaker::Game::LEVELS[:medium][:hints])
+        expect(game.hints).to eq(Codebreaker::Game::DIFFICULTY[:medium][:hints])
       end
     end
 
-    describe 'when hard level' do
-      let(:level) { 'hard' }
+    describe 'when hard difficulty' do
+      let(:difficulty) { 'hard' }
 
-      it 'have hard level' do
-        expect(game.level).to eq('hard')
+      it 'have hard difficulty' do
+        expect(game.difficulty).to eq('hard')
       end
 
       it 'have hard attenpts' do
-        expect(game.attempts).to eq(Codebreaker::Game::LEVELS[:hard][:attempts])
+        expect(game.attempts).to eq(Codebreaker::Game::DIFFICULTY[:hard][:attempts])
       end
 
       it 'have hard hints' do
-        expect(game.hints).to eq(Codebreaker::Game::LEVELS[:hard][:hints])
+        expect(game.hints).to eq(Codebreaker::Game::DIFFICULTY[:hard][:hints])
       end
     end
   end

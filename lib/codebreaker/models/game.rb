@@ -3,20 +3,19 @@ module Codebreaker
     include CodeHelper
     include ValidationHelper
 
-    attr_reader :user, :level, :attempts, :hints, :code
+    attr_reader :difficulty, :attempts, :hints, :code
 
-    LEVELS = { easy: { attempts: 15, hints: 2 },
-               medium: { attempts: 10, hints: 1 },
-               hard: { attempts: 5, hints: 1 } }.freeze
+    DIFFICULTY = { easy: { attempts: 15, hints: 2 },
+                   medium: { attempts: 10, hints: 1 },
+                   hard: { attempts: 5, hints: 1 } }.freeze
 
-    def initialize(user, level)
-      validate(user, level)
-      @user = user
+    def initialize(difficulty)
+      validate(difficulty)
       @code = generate
       @hints_array = @code.split('')
-      @level = level
-      @attempts = LEVELS[@level.to_sym][:attempts]
-      @hints = LEVELS[@level.to_sym][:hints]
+      @difficulty = difficulty
+      @attempts = DIFFICULTY[@difficulty.to_sym][:attempts]
+      @hints = DIFFICULTY[@difficulty.to_sym][:hints]
       @guess = ''
     end
 
@@ -38,11 +37,10 @@ module Codebreaker
 
     private
 
-    def validate(user, level)
-      validate_presence(user, level)
-      validate_type(User, user)
-      validate_type(String, level)
-      validate_level(level, LEVELS)
+    def validate(difficulty)
+      validate_presence(difficulty)
+      validate_type(String, difficulty)
+      validate_difficulty(difficulty, DIFFICULTY)
     end
 
     def show_hint
@@ -62,12 +60,11 @@ module Codebreaker
 
     def results
       {
-        name: @user.name,
-        level: @level,
-        attempts_total: LEVELS[@level.to_sym][:attempts],
-        attempts_used: LEVELS[@level.to_sym][:attempts] - @attempts,
-        hints_total: LEVELS[@level.to_sym][:hints],
-        hints_used: LEVELS[@level.to_sym][:hints] - @hints
+        difficulty: @difficulty,
+        attempts_total: DIFFICULTY[@difficulty.to_sym][:attempts],
+        attempts_used: DIFFICULTY[@difficulty.to_sym][:attempts] - @attempts,
+        hints_total: DIFFICULTY[@difficulty.to_sym][:hints],
+        hints_used: DIFFICULTY[@difficulty.to_sym][:hints] - @hints
       }
     end
 

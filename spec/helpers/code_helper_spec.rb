@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Codebreaker::ValidationHelper do
-  let(:user) { Codebreaker::User.new('Billy Kid') }
-  let(:game) { Codebreaker::Game.new(user, 'easy') }
+  let(:game) { Codebreaker::Game.new('easy') }
   let(:code) { game.generate }
 
   describe 'code helper' do

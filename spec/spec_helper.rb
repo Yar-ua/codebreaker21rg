@@ -1,7 +1,9 @@
-# frozen_string_literal: true
-
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  minimum_coverage 95
+  add_filter '/spec/'
+end
+
 require 'codebreaker'
 
 RSpec.configure do |config|
