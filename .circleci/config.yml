@@ -35,6 +35,7 @@ commands:
       - run:
           name: fasterer
           command: bundle exec fasterer
+
   run_specs:
     steps:
       - run:
