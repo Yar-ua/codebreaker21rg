@@ -32,6 +32,9 @@ commands:
       - run:
           name: rubocop
           command: bundle exec rubocop --require rubocop-rspec
+      - run_fasterer:
+          name: fasterer
+          command: bundle exec fasterer
   run_specs:
     steps:
       - run:
