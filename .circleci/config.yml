@@ -38,7 +38,7 @@ commands:
           name: fasterer
           command: bundle exec fasterer
           exclude_path:
-            - 'vendor/**/*.rb'
+            - 'vendor/bundle/'
 
   run_specs:
     steps:
