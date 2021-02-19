@@ -1,7 +1,7 @@
 module Constants
   DIFFICULTY = { easy: { attempts: 15, hints: 2 },
-               medium: { attempts: 10, hints: 1 },
-               hard: { attempts: 5, hints: 1 } }.freeze
+                 medium: { attempts: 10, hints: 1 },
+                 hard: { attempts: 5, hints: 1 } }.freeze
   PLUS = '+'.freeze
   MINUS = '-'.freeze
   MUST_BE_STRING = 'Code must be string'.freeze
