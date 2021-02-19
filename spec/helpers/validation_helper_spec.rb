@@ -3,20 +3,6 @@ require 'spec_helper'
 RSpec.describe Codebreaker::ValidationHelper do
   let(:game) { Codebreaker::Game.new('easy') }
 
-  # describe 'validate_name' do
-  #   it 'with correct name' do
-  #     expect { user.validate_name('Billy') }.not_to raise_error
-  #   end
-
-  #   it 'with short name' do
-  #     expect { user.validate_name('Mo') }.to raise_error(UserError, Codebreaker::ValidationHelper::NAME_SIZE)
-  #   end
-
-  #   it 'with long name' do
-  #     expect { user.validate_name('a' * 21) }.to raise_error(UserError, Codebreaker::ValidationHelper::NAME_SIZE)
-  #   end
-  # end
-
   describe 'validate_presence' do
     it 'with string value' do
       expect { game.validate_presence('easy') }.not_to raise_error

@@ -1,4 +1,5 @@
 require_relative 'codebreaker/version'
+require_relative 'codebreaker/modules/constants'
 require_relative 'codebreaker/errors/empty_value_error'
 require_relative 'codebreaker/errors/wrong_type_error'
 require_relative 'codebreaker/errors/game_error'

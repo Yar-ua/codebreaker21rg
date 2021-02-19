@@ -1,7 +1,6 @@
 module Codebreaker
   module CodeHelper
-    PLUS = '+'.freeze
-    MINUS = '-'.freeze
+    include Constants
 
     def generate
       4.times.map { rand(1..6) }.join

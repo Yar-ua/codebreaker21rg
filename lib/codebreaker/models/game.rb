@@ -1,13 +1,10 @@
 module Codebreaker
   class Game
+    include Constants
     include CodeHelper
     include ValidationHelper
 
     attr_reader :difficulty, :attempts, :hints, :code
-
-    DIFFICULTY = { easy: { attempts: 15, hints: 2 },
-                   medium: { attempts: 10, hints: 1 },
-                   hard: { attempts: 5, hints: 1 } }.freeze
 
     def initialize(difficulty)
       validate(difficulty)
