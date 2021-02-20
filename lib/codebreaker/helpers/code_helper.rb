@@ -15,7 +15,7 @@ module Codebreaker
     end
 
     def not_guess_position_collect(code, try)
-      code.chars.zip(try.chars).delete_if { |v| v[0] == v[1] }
+      code.chars.zip(try.chars).delete_if { |value| value[0] == value[1] }
     end
 
     def not_guess_digit_collect(not_guess_position, arr)
