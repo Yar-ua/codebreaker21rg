@@ -1,7 +1,7 @@
 module Constants
   DIFFICULTY = { easy: { attempts: 15, hints: 2 },
                  medium: { attempts: 10, hints: 1 },
-                 hard: { attempts: 5, hints: 1 } }.freeze
+                 hell: { attempts: 5, hints: 1 } }.freeze
   PLUS = '+'.freeze
   MINUS = '-'.freeze
   MUST_BE_STRING = 'Code must be string'.freeze
@@ -12,4 +12,7 @@ module Constants
   INCORRECT_DIFFICULTY = 'Incorrect difficulty value, try again!'.freeze
   EMPTY_VALUE = 'Value is empty'.freeze
   WRONG_TYPE = 'Wrong type of argument!'.freeze
+  NAME_SIZE = 'Name size must be between 3 and 30'.freeze
+  USER_NOT_INITIALIZED = 'User are not initialized'.freeze
+  DIFFICULTY_NOT_INITIALIZED = 'Difficulty are not initialized'.freeze
 end

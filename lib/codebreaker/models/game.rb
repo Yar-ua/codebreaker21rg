@@ -4,23 +4,30 @@ module Codebreaker
     include CodeHelper
     include ValidationHelper
 
-    attr_reader :difficulty, :attempts, :hints, :code
+    attr_reader :difficulty, :attempts, :hints, :code, :user
 
-    def initialize(difficulty)
-      validate(difficulty)
+    def initialize
       @code = generate
       @hints_array = @code.split('')
-      @difficulty = difficulty
-      @attempts = DIFFICULTY[@difficulty.to_sym][:attempts]
-      @hints = DIFFICULTY[@difficulty.to_sym][:hints]
       @guess = ''
     end
 
+    def set_user(name)
+      @user = Codebreaker::User.new(name)
+    end
+
+    def set_difficulty(type)
+      @difficulty = Codebreaker::Difficulty.new(type)
+      @attempts = @difficulty.attempts
+      @hints = @difficulty.hints
+    end
+
     def hint
-      response(:hint, show_hint)
+      response(:hint, show_hint) if validate_user_and_difficulty_presence
     end
 
     def run(guess)
+      validate_user_and_difficulty_presence
       @guess = guess
       @attempts -= 1
       validate_code(@guess)
@@ -33,12 +40,6 @@ module Codebreaker
     end
 
     private
-
-    def validate(difficulty)
-      validate_presence(difficulty)
-      validate_type(String, difficulty)
-      validate_difficulty(difficulty, DIFFICULTY)
-    end
 
     def show_hint
       return :no_hint if @hints.zero?
@@ -57,16 +58,21 @@ module Codebreaker
 
     def results
       {
-        difficulty: @difficulty,
-        attempts_total: DIFFICULTY[@difficulty.to_sym][:attempts],
-        attempts_used: DIFFICULTY[@difficulty.to_sym][:attempts] - @attempts,
-        hints_total: DIFFICULTY[@difficulty.to_sym][:hints],
-        hints_used: DIFFICULTY[@difficulty.to_sym][:hints] - @hints
+        difficulty: @difficulty.type,
+        attempts_total: @difficulty.attempts,
+        attempts_used: @difficulty.attempts - @attempts,
+        hints_total: @difficulty.hints,
+        hints_used: @difficulty.hints - @hints
       }
     end
 
     def response(status, message = '')
       { status: status, message: message }
+    end
+
+    def validate_user_and_difficulty_presence
+      validate_user_presence(@user)
+      validate_difficulty_presence(@difficulty)
     end
   end
 end

@@ -23,5 +23,17 @@ module Codebreaker
     def validate_type(type, *args)
       args.each { |item| raise WrongTypeError, WRONG_TYPE unless item.instance_of?(type) }
     end
+
+    def validate_name(name)
+      raise UserError, NAME_SIZE if name.length < 3 || name.length > 20
+    end
+
+    def validate_user_presence(user)
+      raise GameError, USER_NOT_INITIALIZED if !user.instance_of?(Codebreaker::User)
+    end
+
+    def validate_difficulty_presence(difficulty)
+      raise GameError, DIFFICULTY_NOT_INITIALIZED if !user.instance_of?(Codebreaker::Difficulty)
+    end
   end
 end
