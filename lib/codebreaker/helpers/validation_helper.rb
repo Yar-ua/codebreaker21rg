@@ -33,7 +33,7 @@ module Codebreaker
     end
 
     def validate_difficulty_presence(difficulty)
-      raise GameError, DIFFICULTY_NOT_INITIALIZED if !user.instance_of?(Codebreaker::Difficulty)
+      raise GameError, DIFFICULTY_NOT_INITIALIZED if !difficulty.instance_of?(Codebreaker::Difficulty)
     end
   end
 end
