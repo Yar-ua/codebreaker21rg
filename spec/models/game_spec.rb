@@ -1,24 +1,29 @@
 require 'spec_helper'
 
 RSpec.describe Codebreaker::Game do
-  let(:game) { described_class.new(difficulty) }
+  let(:game) { described_class.new }
+  let(:name) { 'Benny' }
   let(:difficulty) { 'easy' }
 
-  describe 'after initialize game must be valid with valid attributes' do
-    it { expect(difficulty).to be_truthy }
+  before do
+    game.user_set(name)
+    game.difficulty_set(difficulty)
+  end
+
+  describe 'after initialize game must be' do
     it { expect(game).to be_an_instance_of(described_class) }
   end
 
   describe 'game validation' do
     it 'with empty difficulty value' do
       expect do
-        described_class.new(nil)
+        game.user_set(nil)
       end.to raise_error(EmptyValueError, Codebreaker::ValidationHelper::EMPTY_VALUE)
     end
 
     it 'with wrong difficulty' do
       expect do
-        described_class.new('unknown')
+        game.difficulty_set('unknown')
       end.to raise_error(GameError, Codebreaker::ValidationHelper::INCORRECT_DIFFICULTY)
     end
   end
@@ -26,7 +31,7 @@ RSpec.describe Codebreaker::Game do
   describe 'game have correct values depends on game difficulty' do
     describe 'when easy difficulty' do
       it 'have easy difficulty' do
-        expect(game.difficulty).to eq('easy')
+        expect(game.difficulty.type).to eq('easy')
       end
 
       it 'have easy attempts' do
@@ -42,7 +47,7 @@ RSpec.describe Codebreaker::Game do
       let(:difficulty) { 'medium' }
 
       it 'have medium difficulty' do
-        expect(game.difficulty).to eq('medium')
+        expect(game.difficulty.type).to eq('medium')
       end
 
       it 'have medium attempts' do
@@ -55,18 +60,18 @@ RSpec.describe Codebreaker::Game do
     end
 
     describe 'when hard difficulty' do
-      let(:difficulty) { 'hard' }
+      let(:difficulty) { 'hell' }
 
       it 'have hard difficulty' do
-        expect(game.difficulty).to eq('hard')
+        expect(game.difficulty.type).to eq('hell')
       end
 
       it 'have hard attenpts' do
-        expect(game.attempts).to eq(Codebreaker::Game::DIFFICULTY[:hard][:attempts])
+        expect(game.attempts).to eq(Codebreaker::Game::DIFFICULTY[:hell][:attempts])
       end
 
       it 'have hard hints' do
-        expect(game.hints).to eq(Codebreaker::Game::DIFFICULTY[:hard][:hints])
+        expect(game.hints).to eq(Codebreaker::Game::DIFFICULTY[:hell][:hints])
       end
     end
   end

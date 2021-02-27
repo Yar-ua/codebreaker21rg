@@ -1,7 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Codebreaker::ValidationHelper do
-  let(:game) { Codebreaker::Game.new('easy') }
+  let(:game) { Codebreaker::Game.new }
+
+  before do
+    game.user_set('Benny')
+    game.difficulty_set('hell')
+  end
 
   describe 'validate_presence' do
     it 'with string value' do

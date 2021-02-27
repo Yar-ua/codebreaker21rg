@@ -12,11 +12,11 @@ module Codebreaker
       @guess = ''
     end
 
-    def set_user(name)
+    def user_set(name)
       @user = Codebreaker::User.new(name)
     end
 
-    def set_difficulty(type)
+    def difficulty_set(type)
       @difficulty = Codebreaker::Difficulty.new(type)
       @attempts = @difficulty.attempts
       @hints = @difficulty.hints
@@ -68,6 +68,5 @@ module Codebreaker
     def response(status, message = '')
       { status: status, message: message }
     end
-
   end
 end

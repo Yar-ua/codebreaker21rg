@@ -1,8 +1,13 @@
 require 'spec_helper'
 
 RSpec.describe Codebreaker::ValidationHelper do
-  let(:game) { Codebreaker::Game.new('easy') }
+  let(:game) { Codebreaker::Game.new }
   let(:code) { game.generate }
+
+  before do
+    game.user_set('Benny')
+    game.difficulty_set('hell')
+  end
 
   describe 'code helper' do
     describe 'generate' do

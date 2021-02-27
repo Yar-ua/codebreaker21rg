@@ -27,6 +27,5 @@ module Codebreaker
     def validate_name(name)
       raise UserError, NAME_SIZE if name.length < 3 || name.length > 20
     end
-
   end
 end
