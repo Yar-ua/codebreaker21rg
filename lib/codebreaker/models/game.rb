@@ -23,11 +23,10 @@ module Codebreaker
     end
 
     def hint
-      response(:hint, show_hint) if validate_user_and_difficulty_presence
+      response(:hint, show_hint)
     end
 
     def run(guess)
-      validate_user_and_difficulty_presence
       @guess = guess
       @attempts -= 1
       validate_code(@guess)
@@ -70,9 +69,5 @@ module Codebreaker
       { status: status, message: message }
     end
 
-    def validate_user_and_difficulty_presence
-      validate_user_presence(@user)
-      validate_difficulty_presence(@difficulty)
-    end
   end
 end
