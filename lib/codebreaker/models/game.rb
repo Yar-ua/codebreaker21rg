@@ -23,25 +23,25 @@ module Codebreaker
     end
 
     def hint
-      response(:hint, show_hint)
+      response(HINT, show_hint)
     end
 
     def run(guess)
       @guess = guess
       @attempts -= 1
       validate_code(@guess)
-      return response(:win, results) if win?
+      return response(WIN, results) if win?
 
       check = check_code(@code, @guess)
-      return response(:lose) if lose?
+      return response(LOSE) if lose?
 
-      response(:ok, check)
+      response(OK, check)
     end
 
     private
 
     def show_hint
-      return :no_hint if @hints.zero?
+      return NO_HINT if @hints.zero?
 
       @hints -= 1
       @hints_array.delete(@hints_array.sample)

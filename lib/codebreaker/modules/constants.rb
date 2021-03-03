@@ -13,4 +13,10 @@ module Constants
   EMPTY_VALUE = 'Value is empty'.freeze
   WRONG_TYPE = 'Wrong type of argument!'.freeze
   NAME_SIZE = 'Name size must be between 3 and 30'.freeze
+
+  WIN = :win
+  LOSE = :lose
+  OK = :ok
+  HINT = :hint
+  NO_HINT = :no_hint
 end

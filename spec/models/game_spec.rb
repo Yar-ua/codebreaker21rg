@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 RSpec.describe Codebreaker::Game do
   let(:game) { described_class.new }
@@ -102,35 +103,35 @@ RSpec.describe Codebreaker::Game do
     end
 
     it 'get response with + and - if game process are ok' do
-      expect(game.run('1234')).to include(status: :ok)
+      expect(game.run('1234')).to include(status: Codebreaker::Game::OK)
     end
   end
 
   describe 'loose game' do
     it 'wrong if attempts are not finished' do
-      expect(game.run('6666')[:status]).not_to eq(:lose)
+      expect(game.run('6666')[:status]).not_to eq(Codebreaker::Game::LOSE)
     end
 
     it 'if attempts are finished' do
       game.attempts.times { game.run('6666') }
-      expect(game.run('6666')[:status]).to eq(:lose)
+      expect(game.run('6666')[:status]).to eq(Codebreaker::Game::LOSE)
     end
   end
 
   describe 'game hint' do
     it 'available if hints not finished' do
-      expect(game.hint).to include(status: :hint, message: /[1-6]/)
+      expect(game.hint).to include(status: Codebreaker::Game::HINT, message: /[1-6]/)
     end
 
     it 'not available if attempts are finished' do
       game.hints.times { game.hint }
-      expect(game.hint).to include(status: :hint, message: :no_hint)
+      expect(game.hint).to include(status: Codebreaker::Game::HINT, message: Codebreaker::Game::NO_HINT)
     end
   end
 
   describe 'game win' do
     it 'if code was guessed' do
-      expect(game.run(game.code)).to include(status: :win)
+      expect(game.run(game.code)).to include(status: Codebreaker::Game::WIN)
     end
   end
 
