@@ -138,4 +138,47 @@ RSpec.describe Codebreaker::Game do
   describe 'universal game response' do
     it { expect(game.send(:response, :test, :testmsg)).to eq({ status: :test, message: :testmsg }) }
   end
+
+  describe 'ruby garage special tests' do
+    [
+      ['6541', '6541',
+       [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS, Codebreaker::Game::PLUS,
+        Codebreaker::Game::PLUS]],
+      ['1221', '2112',
+       [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS, Codebreaker::Game::MINUS,
+        Codebreaker::Game::MINUS]],
+      ['6235', '2365',
+       [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS, Codebreaker::Game::MINUS,
+        Codebreaker::Game::MINUS]],
+      ['1234', '4321',
+       [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS, Codebreaker::Game::MINUS,
+        Codebreaker::Game::MINUS]],
+      ['1234', '1235',
+       [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS, Codebreaker::Game::PLUS]],
+      ['1234', '5431',
+       [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
+      ['1234', '1524',
+       [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
+      ['1234', '4326',
+       [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
+      ['1234', '3525', [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
+      ['1234', '5612', [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
+      # ['5566', '5600', [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
+      ['1234', '6254', [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS]],
+      ['1231', '1111', [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS]],
+      ['1115', '1231', [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
+      ['1234', '4255', [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
+      ['1234', '5635', [Codebreaker::Game::PLUS]],
+      ['1234', '6666', []],
+      ['1234', '2552', [Codebreaker::Game::MINUS]]
+    ].each do |item|
+      it "when result is #{item[2]} if code is - #{item[0]} guess is #{item[1]}" do
+        game.instance_variable_set(:@attempts, 2)
+        game.instance_variable_set(:@code, item[0])
+        code = item[0]
+        guess = item[1]
+        expect(game.check_code(code, guess)).to eq item[2].join
+      end
+    end
+  end
 end
