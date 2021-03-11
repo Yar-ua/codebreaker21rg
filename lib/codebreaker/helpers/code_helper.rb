@@ -19,7 +19,7 @@ module Codebreaker
       code.map.with_index do |_, i|
         next if code[i] != guess[i]
 
-        resp << '+'
+        resp << PLUS
         guess[i] = nil
         code[i] = nil
       end
@@ -34,7 +34,7 @@ module Codebreaker
 
         guess[guess.index(item)] = nil
         code[code.index(item)] = nil
-        resp << '-'
+        resp << MINUS
       end
       resp
     end
