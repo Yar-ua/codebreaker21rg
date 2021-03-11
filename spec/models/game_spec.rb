@@ -163,7 +163,7 @@ RSpec.describe Codebreaker::Game do
        [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
       ['1234', '3525', [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
       ['1234', '5612', [Codebreaker::Game::MINUS, Codebreaker::Game::MINUS]],
-      # ['5566', '5600', [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
+      ['5566', '5600', [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
       ['1234', '6254', [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS]],
       ['1231', '1111', [Codebreaker::Game::PLUS, Codebreaker::Game::PLUS]],
       ['1115', '1231', [Codebreaker::Game::PLUS, Codebreaker::Game::MINUS]],
