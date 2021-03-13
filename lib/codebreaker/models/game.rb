@@ -61,7 +61,8 @@ module Codebreaker
         attempts_total: @difficulty.attempts,
         attempts_used: @difficulty.attempts - @attempts,
         hints_total: @difficulty.hints,
-        hints_used: @difficulty.hints - @hints
+        hints_used: @difficulty.hints - @hints,
+        datetime: Time.now.to_i
       }
     end
 
