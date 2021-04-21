@@ -2,8 +2,6 @@
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/codebreaker21rg`. To experiment with that code, run `bin/console` for an interactive prompt.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +20,62 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+1. For implementing gem in your aplication add:
+```ruby
+require 'bundler/setup'
+require 'codebreaker'
+```
+
+For start new game do:
+```ruby
+game = Codebreaker::Game.new(difficulty)
+```
+you could choose between 3 levels of difficulty: 'easy', 'middle', 'hard'. So, you could do next:
+```ruby
+game = Codebreaker::Game.new(easy)
+```
+After that game will be initialized.
+
+2. Game process
+
+For taking a hint do:
+```ruby
+game.hint
+```
+game should response with hash:
+```ruby
+{status: :hint, message: '5'}
+```
+if you have no hints, you will get:
+```ruby
+{status: :hint, message: :no_hint}
+```
+
+For sending guess do:
+```ruby
+game.run('1234')
+```
+
+If you win, you will get:
+```ruby
+{status: :win, message: results}
+```
+If you lose, you will get:
+```ruby
+{status: :lose}
+```
+
+
+results - hash, what looks like:
+```ruby
+results = {
+        difficulty: difficulty,
+        attempts_total: attempts_total,
+        attempts_used: attempts_used,
+        hints_total: hints_total,
+        hints_used: hints_used
+      }
+```
 
 ## Development
 

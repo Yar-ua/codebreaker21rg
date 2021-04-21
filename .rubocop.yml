@@ -1,0 +1,16 @@
+require: rubocop-rspec
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+RSpec/FilePath:
+  Enabled: false
+RSpec/ExpectActual:
+  Enabled: false
+  
