@@ -7,8 +7,8 @@ module Codebreaker
       raise GameError, MUST_BE_STRING unless code.is_a? String
       raise GameError, MUST_BE_ONLY_DIGITS if code.match?(/\D/)
       raise GameError, MUST_BE_1_6 if code.match?(/[0789]+/)
-      raise GameError, TOO_LONG if code.length > 4
-      raise GameError, TOO_SHORT if code.length < 4
+      raise GameError, TOO_LONG if code.length > CODE_LENGTH
+      raise GameError, TOO_SHORT if code.length < CODE_LENGTH
     end
 
     def validate_difficulty(difficulty, difficulties)

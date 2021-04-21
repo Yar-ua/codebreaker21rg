@@ -13,6 +13,7 @@ module Constants
   EMPTY_VALUE = 'Value is empty'.freeze
   WRONG_TYPE = 'Wrong type of argument!'.freeze
   NAME_SIZE = 'Name size must be between 3 and 30'.freeze
+  CODE_LENGTH = 4
 
   WIN = :win
   LOSE = :lose
